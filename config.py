@@ -1,11 +1,13 @@
 import pygame
 
-# Bildschirmgröße und Kachelgröße
+# Configure Screen Size and Tile Size
 TILE_SIZE = 32
 WIDTH, HEIGHT = 20 * TILE_SIZE, 15 * TILE_SIZE
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Farmspiel")
 
-# Schriftart
+# Configure Font
 pygame.font.init()
-FONT = pygame.font.SysFont(None, 24)
+FONT = pygame.font.SysFont('courier', 14)
+
+print(pygame.font.get_fonts())
