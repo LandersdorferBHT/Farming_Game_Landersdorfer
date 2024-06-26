@@ -22,11 +22,11 @@ class Fruit:
 
 
 # Create Single Crops
-barley = Fruit("Gerste", "textures/dirt_sprout.png", "textures/barley.png", "textures/grain_harvested.png")
-wheat = Fruit("Weizen", "textures/dirt_sprout.png", "textures/wheat.png", "textures/grain_harvested.png")
-potato = Fruit("Kartoffeln", "textures/dirt_sprout.png", "textures/potatoes.png", "textures/root_harvested.png")
-carrot = Fruit("Karotten", "textures/dirt_sprout.png", "textures/carrot.png", "textures/root_harvested.png")
-turnip = Fruit("Steckrüben", "textures/dirt_sprout.png", "textures/turnip.png", "textures/root_harvested.png")
+barley = Fruit("Barley", "textures/dirt_sprout.png", "textures/barley.png", "textures/grain_harvested.png")
+wheat = Fruit("Wheat", "textures/dirt_sprout.png", "textures/wheat.png", "textures/grain_harvested.png")
+potato = Fruit("Potato", "textures/dirt_sprout.png", "textures/potatoes.png", "textures/root_harvested.png")
+carrot = Fruit("Carrot", "textures/dirt_sprout.png", "textures/carrot.png", "textures/root_harvested.png")
+turnip = Fruit("Turnip", "textures/dirt_sprout.png", "textures/turnip.png", "textures/root_harvested.png")
 
 # Crop List
 fruits = [barley, wheat, potato, carrot, turnip]
