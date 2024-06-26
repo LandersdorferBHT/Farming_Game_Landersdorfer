@@ -1,11 +1,32 @@
 import pygame
 from config import SCREEN, TILE_SIZE
+import asset_helper
 
 
 # Function for Map Initialization to place objects on their respective position
 def initialize_map():
     map_layout = [['' for _ in range(20)] for _ in range(15)]
     field_status = {}
+
+    # Testing Asset Manger
+
+    # Red Large House
+    map_layout[1][18] = 'RLH'
+    map_layout[1][16] = 'BSH'
+    map_layout[1][14] = 'GMH'
+
+    # Blue Small House
+    map_layout[3][18] = 'BSH'
+    map_layout[3][16] = 'GMH'
+    map_layout[3][14] = 'RLH'
+
+    # Green Middle House
+    map_layout[5][18] = 'GMH'
+    map_layout[3][16] = 'RLH'
+    map_layout[3][14] = 'BSH'
+
+
+    #
 
     # Place the Farmhouse
     farmhouse_pos = (9, 6)
@@ -39,10 +60,10 @@ def initialize_map():
 
     # Large Field in the top right Corner
     # Startpoint = (14, 1)
-    for x in range(5):
-        for y in range(9):
-            map_layout[1 + y][14 + x] = 'T'
-            field_status[(14 + x, 1 + y)] = 'plowed'
+    # for x in range(5):
+    #     for y in range(9):
+    #         map_layout[1 + y][14 + x] = 'T'
+    #         field_status[(14 + x, 1 + y)] = 'plowed'
 
     # Place the Market
     market_pos = (1, 1)
@@ -85,6 +106,17 @@ MARKET = pygame.transform.scale(MARKET, (TILE_SIZE, TILE_SIZE))
 
 BUSH = pygame.image.load("textures/bush.png").convert_alpha()
 BUSH = pygame.transform.scale(BUSH, (TILE_SIZE, TILE_SIZE))
+
+RED_LARGE_HOUSE = asset_helper.get_asset(260, 1221, 200, 160)
+RED_LARGE_HOUSE = pygame.transform.scale(RED_LARGE_HOUSE, (TILE_SIZE, TILE_SIZE))
+
+BLUE_SMALL_HOUSE = asset_helper.get_asset(496, 1975, 120, 180)
+BLUE_SMALL_HOUSE = pygame.transform.scale(BLUE_SMALL_HOUSE, (TILE_SIZE, TILE_SIZE))
+
+GREEN_MID_HOUSE = asset_helper.get_asset(300, 1400, 160, 175)
+GREEN_MID_HOUSE = pygame.transform.scale(GREEN_MID_HOUSE, (TILE_SIZE, TILE_SIZE))
+# X = 460
+# Y = 1575
 
 
 # Function to draw the Initialized Map with all their Objects
@@ -152,6 +184,16 @@ def draw_map(map_layout, field_status):
             # Renders the Bushes
             elif map_layout[y][x] == 'V':
                 SCREEN.blit(BUSH, (x * TILE_SIZE, y * TILE_SIZE))
+
+            # Should Render Red House
+            elif map_layout[y][x] == 'RLH':
+                SCREEN.blit(RED_LARGE_HOUSE, (x * TILE_SIZE, y * TILE_SIZE))
+
+            elif map_layout[y][x] == 'BSH':
+                SCREEN.blit(BLUE_SMALL_HOUSE, (x * TILE_SIZE, y * TILE_SIZE))
+
+            elif map_layout[y][x] == 'GMH':
+                SCREEN.blit(GREEN_MID_HOUSE, (x * TILE_SIZE, y * TILE_SIZE))
 
             # Renders Grass as Default Behaviour
             else:

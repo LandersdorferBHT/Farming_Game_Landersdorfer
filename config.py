@@ -9,5 +9,3 @@ pygame.display.set_caption("Farmspiel")
 # Configure Font
 pygame.font.init()
 FONT = pygame.font.SysFont('courier', 14)
-
-print(pygame.font.get_fonts())
