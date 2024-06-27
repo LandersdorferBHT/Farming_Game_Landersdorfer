@@ -8,10 +8,10 @@ def draw_hud(inventory, account_balance, selected_fruit):
     balance_text = FONT.render(f'Account: {account_balance:.2f}€', True, (255, 255, 255))
     fruit_text = FONT.render(f'Crop: {selected_fruit.name}', True, (255, 255, 255))
 
-    SCREEN.blit(seeds_text, (30, 250))
-    SCREEN.blit(produce_text, (30, 275))
-    SCREEN.blit(balance_text, (30, 300))
-    SCREEN.blit(fruit_text, (30, 325))
+    SCREEN.blit(seeds_text, (230, 350))
+    SCREEN.blit(produce_text, (230, 375))
+    SCREEN.blit(balance_text, (230, 400))
+    SCREEN.blit(fruit_text, (230, 425))
 
 
 # Function to Draw Field Info HUD (Field Status, Planted Crop)
@@ -34,7 +34,7 @@ def draw_field_info(field_status, player_pos):
     field_info_render = FONT.render(field_info_text, True, (255, 255, 255))
     crop_info_render = FONT.render(crop_info_text, True, (255, 255, 255))
 
-    SCREEN.blit(field_info_render, (WIDTH - 250, 400))
-    SCREEN.blit(crop_info_render, (WIDTH - 250, 425))
+    SCREEN.blit(field_info_render, (400, 400))
+    SCREEN.blit(crop_info_render, (400, 425))
 
 

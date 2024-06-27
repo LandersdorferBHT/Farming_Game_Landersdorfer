@@ -8,25 +8,22 @@ def initialize_map():
     map_layout = [['' for _ in range(20)] for _ in range(15)]
     field_status = {}
 
-    # Testing Asset Manger
-
-    # Red Large House
+    # House Placement
     map_layout[1][18] = 'RLH'
     map_layout[1][16] = 'BSH'
     map_layout[1][14] = 'GMH'
 
-    # Blue Small House
     map_layout[3][18] = 'BSH'
     map_layout[3][16] = 'GMH'
     map_layout[3][14] = 'RLH'
 
-    # Green Middle House
     map_layout[5][18] = 'GMH'
-    map_layout[3][16] = 'RLH'
-    map_layout[3][14] = 'BSH'
+    map_layout[5][16] = 'RLH'
+    map_layout[5][14] = 'BSH'
 
-
-    #
+    map_layout[7][18] = 'RLH'
+    map_layout[7][16] = 'GMH'
+    map_layout[7][14] = 'BSH'
 
     # Place the Farmhouse
     farmhouse_pos = (9, 6)
@@ -40,20 +37,20 @@ def initialize_map():
         map_layout[4 + i][7] = 'V'
         map_layout[4 + i][11] = 'V'
 
-    # First 3x3 Field, bottom left
-    field_one = [(13, 1), (12, 1), (11, 1), (13, 2), (12, 2), (11, 2), (13, 3), (12, 3), (11, 3)]
+    # First 3x3 Field
+    field_one = [(4, 2), (3, 2), (2, 2), (4, 3), (3, 3), (2, 3), (4, 4), (3, 4), (2, 4)]
     for pos in field_one:
         map_layout[pos[0]][pos[1]] = 'T'
         field_status[pos[1], pos[0]] = 'plowed'
 
-    # Second 3x3 Field, right of the first Field
-    field_two = [(13, 5), (12, 5), (11, 5), (13, 6), (12, 6), (11, 6), (13, 7), (12, 7), (11, 7)]
+    # Second 3x3 Field
+    field_two = [(8, 2), (7, 2), (6, 2), (8, 3), (7, 3), (6, 3), (8, 4), (7, 4), (6, 4)]
     for pos in field_two:
         map_layout[pos[0]][pos[1]] = 'T'
         field_status[pos[1], pos[0]] = 'plowed'
 
-    # Third 3x3 Field, right of the second Field
-    field_three = [(13, 9), (12, 9), (11, 9), (13, 10), (12, 10), (11, 10), (13, 11), (12, 11), (11, 11)]
+    # Third 3x3 Field
+    field_three = [(12, 2), (11, 2), (10, 2), (12, 3), (11, 3), (10, 3), (12, 4), (11, 4), (10, 4)]
     for pos in field_three:
         map_layout[pos[0]][pos[1]] = 'T'
         field_status[pos[1], pos[0]] = 'plowed'
@@ -66,13 +63,48 @@ def initialize_map():
     #         field_status[(14 + x, 1 + y)] = 'plowed'
 
     # Place the Market
-    market_pos = (1, 1)
+    market_pos = (16, 10)
     map_layout[market_pos[1]][market_pos[0]] = 'M'
 
-    # Path from Farm to Market
-    path_to_market = [(3, 1), (3, 2), (3, 3), (4, 3), (5, 3), (6, 3), (6, 4), (6, 5), (6, 6), (7, 6)] # (7, 6)
-    for pos in path_to_market:
-        map_layout[pos[1]][pos[0]] = 'P'
+    # Path System
+
+    # Field Entry's
+    map_layout[3][5] = 'P'
+    map_layout[7][5] = 'P'
+    map_layout[11][5] = 'P'
+
+    # Path to Village
+    for x in range(7, 19):
+        map_layout[2][x] = 'P'
+
+    # Village Path
+    for x in range(3, 12):
+        map_layout[x][15] = 'P'
+
+        for x in range(3, 12):
+            map_layout[x][17] = 'P'
+
+    # Connect Market
+    map_layout[11][16] = 'P'
+
+    # Connecting Farm
+    map_layout[3][9] = 'P'
+    map_layout[4][9] = 'P'
+    map_layout[5][9] = 'P'
+
+    map_layout[5][10] = 'P'
+    map_layout[6][10] = 'P'
+    map_layout[7][10] = 'P'
+
+    map_layout[5][8] = 'P'
+    map_layout[6][8] = 'P'
+    map_layout[7][8] = 'P'
+
+    map_layout[7][9] = 'P'
+
+    # Connecting Fields
+    for x in range(2, 12):
+        map_layout[x][6] = 'P'
 
     # Trees placed around the Edge
     for x in range(20):
@@ -90,7 +122,7 @@ FARMHOUSE = pygame.image.load("textures/farmhouse.png").convert_alpha()
 FARMHOUSE = pygame.transform.scale(FARMHOUSE, (TILE_SIZE, TILE_SIZE))
 
 PATH = pygame.image.load("textures/path.png").convert_alpha()
-PATH = pygame.transform.scale(PATH, (TILE_SIZE, TILE_SIZE))
+PATH = pygame.transform.scale(PATH, (TILE_SIZE / 2.5, TILE_SIZE / 2.25))
 
 FIELD_PLOWED = pygame.image.load("textures/dirt.png").convert_alpha()
 FIELD_PLOWED = pygame.transform.scale(FIELD_PLOWED, (TILE_SIZE, TILE_SIZE))
@@ -115,8 +147,6 @@ BLUE_SMALL_HOUSE = pygame.transform.scale(BLUE_SMALL_HOUSE, (TILE_SIZE, TILE_SIZ
 
 GREEN_MID_HOUSE = asset_helper.get_asset(300, 1400, 160, 175)
 GREEN_MID_HOUSE = pygame.transform.scale(GREEN_MID_HOUSE, (TILE_SIZE, TILE_SIZE))
-# X = 460
-# Y = 1575
 
 
 # Function to draw the Initialized Map with all their Objects
@@ -135,7 +165,10 @@ def draw_map(map_layout, field_status):
 
             # Renders the Path
             elif map_layout[y][x] == 'P':
-                SCREEN.blit(PATH, (x * TILE_SIZE, y * TILE_SIZE))
+                # SCREEN.blit(PATH, (x * TILE_SIZE, y * TILE_SIZE))
+                path_x = x * TILE_SIZE + (TILE_SIZE - PATH.get_width()) // 2
+                path_y = y * TILE_SIZE + (TILE_SIZE - PATH.get_height()) // 2
+                SCREEN.blit(PATH, (path_x, path_y))
 
             # Renders all Fields with 'plowed' state
             elif map_layout[y][x] == 'T':

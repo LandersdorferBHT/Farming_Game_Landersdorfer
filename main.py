@@ -17,7 +17,7 @@ field_timers = {}
 player_pos = [10, 7]
 
 # Initializes Player Inventory and Account Balance
-inventory = {'seeds': 10, 'harvested_produce': 0}
+inventory = {'seeds': 5, 'harvested_produce': 0}
 account_balance = 0.0
 
 # Selected Crop Type
@@ -37,19 +37,19 @@ while running:
         elif event.type == pygame.KEYDOWN:
 
             # Behaviour for Arrow Key Left
-            if event.key == pygame.K_LEFT and player_pos[0] > 0 and map_layout[player_pos[1]][player_pos[0] - 1] != 'B':
+            if event.key == pygame.K_LEFT and player_pos[0] > 0 and map_layout[player_pos[1]][player_pos[0] - 1] in ['T', 'P', 'M']:
                 player_pos[0] -= 1
 
             # Behaviour Arrow Key Right
-            elif event.key == pygame.K_RIGHT and player_pos[0] < 19 and map_layout[player_pos[1]][player_pos[0] + 1] != 'B':
+            elif event.key == pygame.K_RIGHT and player_pos[0] < 19 and map_layout[player_pos[1]][player_pos[0] + 1] in ['T', 'P', 'M']:
                 player_pos[0] += 1
 
             # Behaviour Arrow Key Up
-            elif event.key == pygame.K_UP and player_pos[1] > 0 and map_layout[player_pos[1] - 1][player_pos[0]] != 'B':
+            elif event.key == pygame.K_UP and player_pos[1] > 0 and map_layout[player_pos[1] - 1][player_pos[0]] in ['T', 'P', 'M']:
                 player_pos[1] -= 1
 
             # Behaviour Arrow Key Down
-            elif event.key == pygame.K_DOWN and player_pos[1] < 14 and map_layout[player_pos[1] + 1][player_pos[0]] != 'B':
+            elif event.key == pygame.K_DOWN and player_pos[1] < 14 and map_layout[player_pos[1] + 1][player_pos[0]] in ['T', 'P', 'M']:
                 player_pos[1] += 1
 
             # All Field Work is done with the Spacebar
@@ -95,7 +95,7 @@ while running:
             elif event.key == pygame.K_b:
 
                 # Buys Seeds on the Market
-                if map_layout[player_pos[1]][player_pos[0]] == 'M' and account_balance >= 0.2:
+                if map_layout[player_pos[1]][player_pos[0]] == 'M' and account_balance >= 0.15:
                     inventory['seeds'] += 1
                     account_balance -= 0.15
 
@@ -117,7 +117,7 @@ while running:
     draw_field_info(field_status, tuple(player_pos))
 
     pygame.display.flip()
-    clock.tick(30)
+    clock.tick(60)
 
 pygame.quit()
 sys.exit()
